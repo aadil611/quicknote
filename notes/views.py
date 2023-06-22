@@ -55,7 +55,7 @@ def share(request):
 
     username = request.data.get('username', None)
     if username is None:
-        return Response({"message": "recipient username is required to share the notes"}, status=400)
+        return Response({"username": "this field is required to share the notes"}, status=400)
     
     # checking if the note exists and belongs to the user who is sharing it
     try:
