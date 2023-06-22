@@ -1,7 +1,7 @@
 from django.shortcuts import render
 from rest_framework import viewsets
 from rest_framework.permissions import IsAuthenticated
-from rest_framework.decorators import action, api_view, permission_classes
+from rest_framework.decorators import api_view, permission_classes
 from rest_framework.response import Response
 from django.contrib.auth.models import User
 
@@ -37,7 +37,7 @@ class NoteModelViewSet(viewsets.ModelViewSet):
 def shared_with_me(request):
     # only return notes that are shared with the user making the request
     queryset = Note.objects.filter(shared_with=request.user)
-    serializer = NoteSerializer(queryset, many=True)
+    serializer = NoteSerializer(queryset, many=True, context = {'request': request})
     data = serializer.data
     # hide who else the note is shared with
     for note in data:
